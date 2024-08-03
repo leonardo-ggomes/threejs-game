@@ -19,6 +19,7 @@ export default class PlayerController{
     followCam: FollowCamera
     speed: number = 2
     scene: Scene
+    wait = false
 
     constructor(character: Character, followCam: FollowCamera, environment: Environment){
         this.character = character   
@@ -43,10 +44,11 @@ export default class PlayerController{
         {
             this.activeAnimation?.fadeOut(0.2)
             active.reset().fadeIn(0.1).play()
-            this.activeAnimation = active
+            this.activeAnimation = active                      
         }
              
     }
+       
 
     update(delta: number)
     {
@@ -55,39 +57,55 @@ export default class PlayerController{
         // Reseta a velocidade de entrada
         this.inputVelocity.set(0, 0, 0)
 
-        if (this.keyboard['s']) {
-            this.inputVelocity.z = 1
-            this.setAnimation(this.character.animationActions['walk'])
-            this.speed = 10
-        }
-        else if (this.keyboard['a']) {
-            this.inputVelocity.x = -1
-            this.setAnimation(this.character.animationActions['walk'])
-            this.speed = 10
-        }
-        else if (this.keyboard['d']) {
-            this.inputVelocity.x = 1
-            this.setAnimation(this.character.animationActions['walk'])
-            this.speed = 10
-        }        
-        else if(this.keyboard['w']){
-            if(this.keyboard['Shift'])
-            {
-                this.setAnimation(this.character.animationActions['run'])
-                this.speed = 15
-            }
-            else{
+       if(!this.wait){
+            if (this.keyboard['s']) {
+                this.inputVelocity.z = 1
                 this.setAnimation(this.character.animationActions['walk'])
                 this.speed = 10
-            }  
-            
-             // Define a velocidade de entrada para frente
-            this.inputVelocity.z = -1
-        }
-        else
-        {
-            this.setAnimation(this.character.animationActions['idle'])
-        }
+            }
+            else if (this.keyboard['a']) {
+                this.inputVelocity.x = -1
+                this.setAnimation(this.character.animationActions['walk'])
+                this.speed = 10
+            }
+            else if (this.keyboard['d']) {
+                this.inputVelocity.x = 1
+                this.setAnimation(this.character.animationActions['walk'])
+                this.speed = 10
+            }        
+            else if(this.keyboard['w']){
+                if(this.keyboard['Shift'])
+                {
+                    this.setAnimation(this.character.animationActions['run'])
+                    this.speed = 15
+                }
+                else{                    
+                    this.setAnimation(this.character.animationActions['walk'])
+                    this.speed = 10
+                }  
+                
+                    // Define a velocidade de entrada para frente
+                this.inputVelocity.z = -1
+            }
+            else if(this.keyboard['f']){  
+                if(!this.wait)
+                {
+                    this.wait = true
+                    this.setAnimation(this.character.animationActions['attack'])
+                    setTimeout(() => (this.wait = false), 1200)
+                }        
+            }
+            else
+            {      
+                if(!this.wait)
+                {
+                    this.setAnimation(this.character.animationActions['idle'])
+                }      
+            }
+       }
+       
+
+        
 
         this.inputVelocity.setLength(delta * (this.speed || 1)) // limit horizontal movement based on walking or running speed
     

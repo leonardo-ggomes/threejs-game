@@ -1,7 +1,7 @@
 import Renderer from './renderer'
 import Environment from './environment'
 import { PerspectiveCamera } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Experience from './experience'
 import UI from './ui'
 import FollowCamera from './followCamera'
@@ -11,7 +11,7 @@ export default class Game{
 
     private _renderer: Renderer
     private _environment: Environment
-    private _controls: OrbitControls
+    //private _controls: OrbitControls
     private _experience: Experience
     private _ui: UI
     private _followCamera: FollowCamera
@@ -21,7 +21,7 @@ export default class Game{
     {        
         this._environment = environment
         this._renderer = new Renderer(camera, this._environment)
-        this._controls = new OrbitControls(camera, this._renderer.renderer.domElement)
+        //this._controls = new OrbitControls(camera, this._renderer.renderer.domElement)
         this._followCamera = new FollowCamera(this._environment.scene, camera, this._renderer.renderer)
         this._experience = new Experience(this._environment, this._followCamera)
         this._ui = new UI(this._renderer)
@@ -34,7 +34,7 @@ export default class Game{
 
     update(delta: number, elapsedTime: number){
         this._renderer.Update()
-        this._controls.update()
+        //this._controls.update()
         this._experience.update(delta)
     }
 } 

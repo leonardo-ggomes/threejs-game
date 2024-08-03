@@ -48,6 +48,7 @@ export default class Character extends Group{
         this.animationActions['walk'] = this.mixer.clipAction(hooded.animations[22])
         this.animationActions['run'] = this.mixer.clipAction(hooded.animations[16])
         this.animationActions['death'] = this.mixer.clipAction(hooded.animations[0])
+        this.animationActions['attack'] = this.mixer.clipAction(hooded.animations[21])
 
         // this.animationActions['walk'] = this.mixer.clipAction(AnimationUtils.subclip(walk.animations[0],'walk', 0, 42))
         // this.animationActions['run'] = this.mixer.clipAction(AnimationUtils.subclip(run.animations[0],'run', 0, 23))
