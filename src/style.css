@@ -1,0 +1,12 @@
+body{
+  overflow: hidden;
+  margin: 0;
+}
+
+
+#start{
+  position: absolute;
+  top: 0;
+  right: 50%;
+  padding: 5px;
+}
