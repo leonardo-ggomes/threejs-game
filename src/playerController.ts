@@ -38,12 +38,12 @@ export default class PlayerController{
         document.addEventListener('keyup', onDocumentPress)
     }
 
-    private setAnimation(active: AnimationAction){
+    private setAnimation(active: AnimationAction, duration?: number){
         
         if(active != this.activeAnimation)
         {
             this.activeAnimation?.fadeOut(0.2)
-            active.reset().fadeIn(0.1).play()
+            active.reset().fadeIn(0.1).setDuration(duration || active.timeScale).play()
             this.activeAnimation = active                      
         }
              
@@ -91,8 +91,8 @@ export default class PlayerController{
                 if(!this.wait)
                 {
                     this.wait = true
-                    this.setAnimation(this.character.animationActions['attack'])
-                    setTimeout(() => (this.wait = false), 1200)
+                    this.setAnimation(this.character.animationActions['attack'], 0.55)
+                    setTimeout(() => (this.wait = false), this.activeAnimation?.timeScale)
                 }        
             }
             else
