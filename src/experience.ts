@@ -28,7 +28,7 @@ export default class Experience{
     }
 
     Init = () => {
-        const light = new AmbientLight(0xffffff, 10)        
+        const light = new AmbientLight(0xffffff, 3)        
         this._environment.scene.add(light)
         const ground = new Ground()
         this._environment.scene.add(ground)       
